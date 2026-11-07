@@ -9,7 +9,7 @@ This project is open-source and distributed under the **MIT License**.
 * **Interactive Engine Menu:** Prompts the player at boot to select their preferred client setup (1 — Vanilla, 2 — Fabric).
 * **Automated Mod Workflow:** If Fabric is selected, the launcher instantly generates and opens the `%appdata%\.michael_launcher\minecraft\mods` folder via Windows File Explorer. Or portable.
 * **Zero-Admin Architecture:** Downloads all core assets and required Java runtimes directly into user profiles. Works seamlessly on shared, managed, or school PCs without demanding administrative privileges.
-* **Live Progress Engine:** Reports accurate asset/library downloads (`%`) and install steps inside the terminal.
+* **Live Progress Engine:** Reports accurate asset/library downloads and install steps inside the terminal.
 
 ## 🚀 How to Run
 
