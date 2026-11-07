@@ -6,10 +6,9 @@ This project is open-source and distributed under the **MIT License**.
 
 ## ✨ Features
 
-* **Strict Versioning:** Hardcoded to target the definitive 1.21.11 game build.
 * **Interactive Engine Menu:** Prompts the player at boot to select their preferred client setup (1 — Vanilla, 2 — Fabric).
 * **Automated Mod Workflow:** If Fabric is selected, the launcher instantly generates and opens the `%appdata%\.michael_launcher\minecraft\mods` folder via Windows File Explorer. Or portable.
-* **Zero-Admin Architecture:** Downloads all core assets and required Java 21 runtimes directly into user profiles. Works seamlessly on shared, managed, or school PCs without demanding administrative privileges.
+* **Zero-Admin Architecture:** Downloads all core assets and required Java runtimes directly into user profiles. Works seamlessly on shared, managed, or school PCs without demanding administrative privileges.
 * **Live Progress Engine:** Reports accurate asset/library downloads (`%`) and install steps inside the terminal.
 
 ## 🚀 How to Run
@@ -18,5 +17,4 @@ This project is open-source and distributed under the **MIT License**.
 1. Install the required client core dependency:
    pip install minecraft-launcher-lib
    
-3. Execute the main script launcher file:
-   python michael_launcher.py
+2. Execute the main script launcher file
