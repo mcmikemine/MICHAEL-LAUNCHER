@@ -1,6 +1,6 @@
 # MICHAEL-LAUNCHER
 
-**Michael Launcher** is a lightweight, high-performance, and secure custom Minecraft launcher built specifically for **Minecraft 1.21.11**. It allows users to instantly choose between a clean **Vanilla** game or a fully optimized **Fabric** modded environment.
+**Michael Launcher** is a lightweight, high-performance, and secure custom Minecraft launcher. It allows users to instantly choose between a clean **Vanilla** game or a fully optimized **Fabric** modded environment.
 
 This project is open-source and distributed under the **MIT License**.
 
