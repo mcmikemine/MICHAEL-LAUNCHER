@@ -8,6 +8,8 @@ import os
 import json
 import subprocess
 import urllib.request
+import requests
+from urllib.parse import urlparse
 import minecraft_launcher_lib
 
 LAUNCHER_VERSION = "1.1.0"
@@ -23,6 +25,9 @@ CHANGELOG = {
         "Separate mods folder for each game version",
         "Auto Java selection on the system",
         "Nickname database (JSON) — choose from saved or enter new",
+        "Choice of download source: Mojang or one of 3 mirrors (BMCLAPI / FastMinecraftMirror / MCLib)",
+        "Automatic fallback between mirrors if one is down",
+        "Global requests.get patch so every download goes through the chosen source",
     ],
     "1.0.0": [
         "Initial release: 1.21.11 only, Vanilla / Fabric choice",
@@ -38,15 +43,21 @@ VERSIONS_CACHE = os.path.join(BASE_DIR, "versions_cache.json")
 
 MOJANG_MANIFEST = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
 
-# Built-in list for the case when there is no network and no cache
+# Built-in list for the case when there is no network and no cache.
+# All entries below are "release" type from the Mojang manifest.
 FALLBACK_VERSIONS = [
-    "1.21.11", "1.21.10", "1.21.9", "1.21.8", "1.21.5", "1.21.4", "1.21.1",
-    "1.20.6", "1.20.4", "1.20.1",
-    "1.19.4", "1.19.2",
-    "1.18.2",
-    "1.17.1",
-    "1.16.5", "1.16.4", "1.16.1",
-    "1.15.2", "1.14.4", "1.12.2", "1.8.9", "1.7.10",
+    # 26.x
+    "26.3", "26.2", "26.1.2", "26.1.1", "26.1",
+    # 1.21.x
+    "1.21.11", "1.21.10", "1.21.9", "1.21.8", "1.21.7", "1.21.6",
+    "1.21.5", "1.21.4", "1.21.3", "1.21.2", "1.21.1", "1.21",
+    # 1.20.x
+    "1.20.6", "1.20.5", "1.20.4", "1.20.3", "1.20.2", "1.20.1", "1.20",
+    # 1.19.x
+    "1.19.4", "1.19.3", "1.19.2", "1.19.1", "1.19",
+    # Older releases (kept from previous fallback)
+    "1.18.2", "1.17.1", "1.16.5", "1.16.4", "1.16.1", "1.15.2", "1.14.4",
+    "1.12.2", "1.8.9", "1.7.10",
 ]
 
 # Java search paths (edit to match your system if auto-search fails)
@@ -93,6 +104,117 @@ VERSION_HISTORY = {
     "26":   ("2026 updates: new version numbering system", "2026"),
 }
 
+
+# ==================== MIRRORS ====================
+MIRRORS = [
+    {
+        "name": "BMCLAPI",
+        "replacements": {
+            "launchermeta.mojang.com": "bmclapi2.bangbang93.com",
+            "piston-meta.mojang.com": "bmclapi2.bangbang93.com",
+            "launcher.mojang.com": "bmclapi2.bangbang93.com",
+            "resources.download.minecraft.net": "bmclapi2.bangbang93.com",
+            "libraries.minecraft.net": "bmclapi2.bangbang93.com",
+        },
+        "special": {
+            # Assets: resources.download.minecraft.net/ab/abcdef -> /assets/abcdef
+            "resources.download.minecraft.net": lambda path: f"/assets/{path.split('/')[-1]}"
+            if path.count('/') >= 2 else None,
+            # Libraries: libraries.minecraft.net/com/mojang/... -> /maven/com/mojang/...
+            "libraries.minecraft.net": lambda path: f"/maven{path}",
+        },
+    },
+    {
+        "name": "FastMinecraftMirror",
+        "replacements": {
+            "launchermeta.mojang.com": "fastmcmirror.org",
+            "piston-meta.mojang.com": "fastmcmirror.org",
+            "launcher.mojang.com": "fastmcmirror.org",
+            "resources.download.minecraft.net": "fastmcmirror.org",
+            "libraries.minecraft.net": "fastmcmirror.org",
+        },
+        "special": {}
+    },
+    {
+        "name": "MCLib",
+        "replacements": {
+            "launchermeta.mojang.com": "mclib.org",
+            "piston-meta.mojang.com": "mclib.org",
+            "launcher.mojang.com": "mclib.org",
+            "resources.download.minecraft.net": "mclib.org",
+            "libraries.minecraft.net": "mclib.org",
+        },
+        "special": {}
+    },
+]
+
+
+def choose_download_source():
+    """Ask the user which source to use. Returns a list of mirrors (or [])."""
+    print("\n=== Where to download Minecraft files from? ===")
+    print("1 - Official Mojang (may be blocked)")
+    print("2 - BMCLAPI (mirror #1, recommended)")
+    print("3 - FastMinecraftMirror (mirror #2)")
+    print("4 - MCLib (mirror #3)")
+    print("5 - All mirrors in order (safest)")
+    choice = input("Your choice [1-5, Enter = 5]: ").strip()
+
+    if choice == "1":
+        return []                                        # no mirrors — pure Mojang
+    if choice == "2":
+        return [MIRRORS[0], MIRRORS[1], MIRRORS[2]]      # BMCL first
+    if choice == "3":
+        return [MIRRORS[1], MIRRORS[0], MIRRORS[2]]      # FastMinecraftMirror first
+    if choice == "4":
+        return [MIRRORS[2], MIRRORS[0], MIRRORS[1]]      # MCLib first
+    return list(MIRRORS)                                  # all in order
+
+
+def apply_mirror_patch(mirrors_to_use):
+    """Patch requests.get so every Mojang request goes through the mirrors."""
+    if not mirrors_to_use:
+        print("[Source] Official Mojang (no mirrors)")
+        return
+
+    mojang_hosts = set()
+    for m in mirrors_to_use:
+        mojang_hosts.update(m["replacements"].keys())
+
+    _original_requests_get = requests.get
+
+    def patched_get(url, *args, **kwargs):
+        parsed = urlparse(url)
+        if parsed.netloc in mojang_hosts:
+            for mirror in mirrors_to_use:
+                if parsed.netloc not in mirror["replacements"]:
+                    continue
+                new_host = mirror["replacements"][parsed.netloc]
+                new_path = parsed.path
+                if parsed.query:
+                    new_path += "?" + parsed.query
+                if parsed.netloc in mirror.get("special", {}):
+                    special_path = mirror["special"][parsed.netloc](parsed.path)
+                    if special_path is not None:
+                        new_path = special_path
+                mirrored_url = f"https://{new_host}{new_path}"
+                try:
+                    resp = _original_requests_get(mirrored_url, *args, **kwargs)
+                    if resp.status_code < 400:
+                        print(f"[Mirror] {mirror['name']}: {url} -> {mirrored_url}")
+                        return resp
+                    print(f"[Mirror] {mirror['name']} returned {resp.status_code}, trying next...")
+                except requests.RequestException as e:
+                    print(f"[Mirror] {mirror['name']} did not respond ({e.__class__.__name__}), trying next...")
+            print(f"[Mirror] All mirrors failed, downloading directly: {url}")
+        return _original_requests_get(url, *args, **kwargs)
+
+    requests.get = patched_get
+    names = ", ".join(m["name"] for m in mirrors_to_use)
+    print(f"[Source] Mirrors: {names}")
+# =================================================
+
+
+# ------------------------- Version info -------------------------
 
 def get_version_info(version: str) -> str:
     """Returns 'Name (date)' for a version if it is in the reference."""
@@ -182,13 +304,15 @@ callback = {
     "setProgress": set_progress
 }
 
+
 # ------------------------- Version list -------------------------
 
 def fetch_versions_online() -> list:
-    """Tries to fetch the version list: via the library first, then directly."""
+    """Try to fetch the version list: via the library first, then directly.
+    All network requests go through the patched requests.get (mirrors)."""
     utils = minecraft_launcher_lib.utils
 
-    # 1. Via the library — the function name depends on the library version
+    # 1. Via the library — function name depends on the library version
     for attr in ("get_minecraft_version_list", "get_minecraft_versions"):
         fn = getattr(utils, attr, None)
         if fn is None:
@@ -207,10 +331,11 @@ def fetch_versions_online() -> list:
             if releases:
                 return releases
 
-    # 2. Directly from the Mojang manifest — works with any library version
+    # 2. Directly from the manifest — requests.get is already patched for mirrors
     try:
-        with urllib.request.urlopen(MOJANG_MANIFEST, timeout=10) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+        resp = requests.get(MOJANG_MANIFEST, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
         releases = [v["id"] for v in data.get("versions", [])
                     if v.get("type") == "release" and v["id"][:1].isdigit()]
         if releases:
@@ -257,7 +382,7 @@ def get_required_java(version: str) -> int:
 
 
 def choose_version() -> str:
-    print("\nLoading version list from Mojang manifest...")
+    print("\nLoading version list...")
     versions = get_release_versions()
     print(f"[Launcher] Found {len(versions)} releases")
 
@@ -360,10 +485,14 @@ print("       WELCOME TO MICHAEL LAUNCHER       ")
 print(f"              version {LAUNCHER_VERSION}               ")
 print("=========================================")
 
+# 0. Where to download from — choose FIRST
+chosen_mirrors = choose_download_source()
+apply_mirror_patch(chosen_mirrors)
+
 # 1. Nickname
 user_nickname = choose_nickname()
 
-# 2. Version selection (all 1.X.X and 26.X releases)
+# 2. Version selection (through the chosen source)
 MINECRAFT_VERSION = choose_version()
 REQUIRED_JAVA = get_required_java(MINECRAFT_VERSION)
 
