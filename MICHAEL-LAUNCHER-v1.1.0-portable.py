@@ -1,20 +1,99 @@
 # ====================================================================
-# MICHAEL LAUNCHER — Version 1.1.0 (PORTABLE)
+# MICHAEL LAUNCHER — Version 1.2.0 (PORTABLE)
 # ALL Minecraft releases starting with 1.X.X and 26.X (Mojang manifest)
 # License: MIT (Free to use, Open Source)
 # ====================================================================
 
 import os
 import sys
-import json
 import subprocess
+
+
+# ------------------------- Dependency bootstrap -------------------------
+def ensure_dependencies():
+    """Install requests and minecraft-launcher-lib if they are missing."""
+    missing = []
+    try:
+        import requests  # noqa: F401
+    except ImportError:
+        missing.append("requests")
+    try:
+        import minecraft_launcher_lib  # noqa: F401
+    except ImportError:
+        missing.append("minecraft-launcher-lib")
+
+    if not missing:
+        return
+
+    print("=" * 55)
+    print("  MICHAEL LAUNCHER — first-run setup")
+    print("=" * 55)
+    print(f"[Setup] Missing packages: {', '.join(missing)}")
+    print("[Setup] Installing automatically, please wait...")
+
+    # Pick the Python interpreter to drive pip.
+    if getattr(sys, "frozen", False):
+        # PyInstaller .exe — sys.executable is the exe, not Python.
+        import shutil
+        python_exe = (
+            shutil.which("python")
+            or shutil.which("py")
+            or shutil.which("python3")
+        )
+        if not python_exe:
+            print("[Setup] ERROR: no Python interpreter found to run pip.")
+            print(f"[Setup] Install manually: pip install {' '.join(missing)}")
+            input("Press Enter to close...")
+            sys.exit(1)
+        pip_base = [python_exe, "-m", "pip"]
+    else:
+        pip_base = [sys.executable, "-m", "pip"]
+
+    pip_cmd = pip_base + ["install", "--upgrade"] + missing
+    print(f"[Setup] Running: {' '.join(pip_cmd)}")
+
+    try:
+        result = subprocess.run(pip_cmd)
+    except Exception as e:
+        print(f"[Setup] ERROR: {e}")
+        print(f"[Setup] Install manually: pip install {' '.join(missing)}")
+        input("Press Enter to close...")
+        sys.exit(1)
+
+    if result.returncode != 0:
+        print(f"[Setup] pip exit code: {result.returncode}")
+        print(f"[Setup] Install manually: pip install {' '.join(missing)}")
+        input("Press Enter to close...")
+        sys.exit(1)
+
+    try:
+        import requests  # noqa: F401
+        import minecraft_launcher_lib  # noqa: F401
+    except ImportError as e:
+        print(f"[Setup] ERROR: still missing after install: {e}")
+        input("Press Enter to close...")
+        sys.exit(1)
+
+    print("[Setup] Done! Continuing...")
+
+
+ensure_dependencies()
+
+# Real imports — instant because the modules are now in sys.modules
+import json
 import urllib.request
 import requests
 from urllib.parse import urlparse
 import minecraft_launcher_lib
 
-LAUNCHER_VERSION = "1.1.0"
+
+LAUNCHER_VERSION = "1.2.0"
 CHANGELOG = {
+    "1.2.0": [
+        "Automatic dependency install: requests and minecraft-launcher-lib are installed on first run if missing",
+        "PORTABLE: all data stored in .michael_launcher next to the launcher",
+        "PORTABLE: bundled JRE in .michael_launcher/jre is used first",
+    ],
     "1.1.0": [
         "All Minecraft releases starting with 1.X.X and 26.X (Mojang manifest)",
         "Offline fallback: cached version list or built-in version list",
@@ -29,8 +108,6 @@ CHANGELOG = {
         "Choice of download source: Mojang or one of 3 mirrors (BMCLAPI / FastMinecraftMirror / MCLib)",
         "Automatic fallback between mirrors if one is down",
         "Global requests.get patch so every download goes through the chosen source",
-        "PORTABLE: all data stored in .michael_launcher next to the launcher",
-        "PORTABLE: bundled JRE in .michael_launcher/jre is used first",
     ],
     "1.0.0": [
         "Initial release: 1.21.11 only, Vanilla / Fabric choice",
@@ -38,15 +115,11 @@ CHANGELOG = {
 }
 
 # ------------------------- Portable paths -------------------------
-# Everything is stored next to the launcher, in a ".michael_launcher" subfolder.
-# Works both as .py and as a PyInstaller .exe.
 
 def get_launcher_dir() -> str:
     """Directory where the launcher itself lives."""
     if getattr(sys, "frozen", False):
-        # PyInstaller one-file / one-dir exe
         return os.path.dirname(os.path.abspath(sys.executable))
-    # Regular .py script
     return os.path.dirname(os.path.abspath(__file__))
 
 
@@ -435,7 +508,7 @@ def choose_version() -> str:
 
 # ------------------------- Java search -------------------------
 
-def find_portable_java() -> str | None:
+def find_portable_java():
     """Looks for a bundled JRE inside .michael_launcher/jre."""
     for exe_name in ("javaw.exe", "java.exe"):
         exe = os.path.join(PORTABLE_JRE, "bin", exe_name)
@@ -513,7 +586,7 @@ print(f"      version {LAUNCHER_VERSION} (portable)       ")
 print("=========================================")
 print(f"[Portable] Data folder: {BASE_DIR}")
 
-# Create data folder on first run
+# Create the data folder on first run
 os.makedirs(BASE_DIR, exist_ok=True)
 
 # 0. Where to download from — choose FIRST
@@ -571,6 +644,7 @@ try:
 except Exception as network_error:
     print(f"\n[Network Info] Switched to offline assets mode: {network_error}")
 
+# Final version detection for launch
 try:
     if mode_choice == "2":
         installed_versions = minecraft_launcher_lib.utils.get_installed_versions(GAME_DIR)
@@ -596,7 +670,9 @@ try:
     if java_path:
         options["executablePath"] = java_path
 
-    launch_command = minecraft_launcher_lib.command.get_minecraft_command(target_version, GAME_DIR, options)
+    launch_command = minecraft_launcher_lib.command.get_minecraft_command(
+        target_version, GAME_DIR, options
+    )
 
     print(f"\n[Launch] Initializing Minecraft {target_version} as {user_nickname}!")
     print("Enjoy your game!")
