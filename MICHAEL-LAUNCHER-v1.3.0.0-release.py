@@ -1,7 +1,6 @@
 # ====================================================================
-# MICHAEL LAUNCHER / МАЙКЛ ЛАУНЧЕР — Version 1.4.0.0 (PORTABLE)
-# Windows / macOS / Linux. English / Русский
-# Vanilla / Fabric / Forge / Forge+OptiFine / NeoForge
+# MICHAEL LAUNCHER / МАЙКЛ ЛАУНЧЕР — Version 1.3.0.0 (PORTABLE)
+# Windows / macOS / Linux. Vanilla / Fabric / Forge / Forge+OptiFine / NeoForge
 # License: MIT
 # ====================================================================
 
@@ -10,10 +9,10 @@ import sys
 import subprocess
 import platform
 
-SYSTEM = platform.system()  # 'Windows', 'Darwin' (macOS), 'Linux'
+SYSTEM = platform.system()  # 'Windows', 'Darwin', 'Linux'
 
 
-# ==================== LANGUAGE ====================
+# ==================== LANGUAGE / ЯЗЫК ====================
 print("Choose language / Выберите язык:")
 print("1 - English")
 print("2 - Русский")
@@ -23,6 +22,8 @@ LANG = "ru" if _lang_pick == "2" else "en"
 
 STRINGS = {
     "en": {
+        "launcher_name": "MICHAEL LAUNCHER",
+
         "setup_header": "MICHAEL LAUNCHER — first-run setup",
         "setup_missing": "[Setup] Missing packages: {pkgs}",
         "setup_installing": "[Setup] Installing automatically, please wait...",
@@ -35,7 +36,6 @@ STRINGS = {
         "setup_done": "[Setup] Done! Continuing...",
         "press_enter": "Press Enter to close...",
 
-        "welcome": "WELCOME TO MICHAEL LAUNCHER",
         "version_line": "      version {v}       ",
         "system_line": "      system: {s}       ",
         "portable_folder": "[Portable] Data folder: {path}",
@@ -125,13 +125,13 @@ STRINGS = {
         "fo_using_both": "[Launcher] Using Forge+OptiFine: {v}",
         "fo_error": "[Launcher] Forge+OptiFine error: {err}. Falling back to Vanilla.",
 
-        "neo_setup": "\n[ModLoader] Setting up NeoForge for {v}...",
-        "neo_no_module": "[Launcher] NeoForge module not available in your minecraft-launcher-lib.",
-        "neo_update": "[Launcher] Update it with: pip install --upgrade minecraft-launcher-lib",
-        "neo_none": "[Launcher] No NeoForge version found for {v}. Falling back to Vanilla.",
-        "neo_recommended": "[ModLoader] Recommended NeoForge: {v}",
-        "neo_using": "[Launcher] Using NeoForge: {v}",
-        "neo_error": "[Launcher] NeoForge error: {err}. Falling back to Vanilla.",
+        "neoforge_setup": "\n[ModLoader] Setting up NeoForge for {v}...",
+        "neoforge_unavailable": "[Launcher] NeoForge module is not available in your minecraft-launcher-lib.",
+        "neoforge_update": "[Launcher] Update it with: pip install --upgrade minecraft-launcher-lib",
+        "neoforge_none": "[Launcher] No NeoForge version found for {v}. Falling back to Vanilla.",
+        "neoforge_recommended": "[ModLoader] Recommended NeoForge: {v}",
+        "neoforge_using": "[Launcher] Using NeoForge: {v}",
+        "neoforge_error": "[Launcher] NeoForge error: {err}. Falling back to Vanilla.",
 
         "running_vanilla": "[Launcher] Running Vanilla {v}",
         "net_error": "\n[Network Info] Error during setup: {err}",
@@ -143,6 +143,8 @@ STRINGS = {
         "downloading": "\rDownloading game assets: [{cur}/{max}] {pct}%",
     },
     "ru": {
+        "launcher_name": "МАЙКЛ ЛАУНЧЕР",
+
         "setup_header": "МАЙКЛ ЛАУНЧЕР — первая настройка",
         "setup_missing": "[Установка] Отсутствуют пакеты: {pkgs}",
         "setup_installing": "[Установка] Устанавливаю автоматически, подождите...",
@@ -155,7 +157,6 @@ STRINGS = {
         "setup_done": "[Установка] Готово! Продолжаем...",
         "press_enter": "Нажмите Enter, чтобы закрыть...",
 
-        "welcome": "ДОБРО ПОЖАЛОВАТЬ В МАЙКЛ ЛАУНЧЕР",
         "version_line": "      версия {v}       ",
         "system_line": "      система: {s}       ",
         "portable_folder": "[Портативно] Папка данных: {path}",
@@ -214,7 +215,7 @@ STRINGS = {
         "vpn_downloads": "{loader} скачивает файлы напрямую с:",
         "vpn_blocked": "Эти серверы часто заблокированы или медленные в России.",
         "vpn_browser_no": "БРАУЗЕРНЫЙ VPN (расширение в Chrome/Opera/Firefox) НЕ поможет!",
-        "vpn_only_system": "Поможет только СИСТЕМНЫЙ VPN или прокси, перенаправляющий ВЕСЬ трафик компьютера:",
+        "vpn_only_system": "Поможет только СИСТЕМНЫЙ VPN или прокси, перенаправляющий ВЕСЬ трафик ПК:",
         "vpn_opt1": "   - WireGuard / OpenVPN / AmneziaVPN / ProtonVPN (десктоп-приложение)",
         "vpn_opt2": "   - Или системный прокси в настройках ОС -> Сеть",
         "vpn_tip1": "Включите VPN, убедитесь, что он активен для всей системы,",
@@ -245,13 +246,13 @@ STRINGS = {
         "fo_using_both": "[Лаунчер] Использую Forge+OptiFine: {v}",
         "fo_error": "[Лаунчер] Ошибка Forge+OptiFine: {err}. Переключаюсь на Vanilla.",
 
-        "neo_setup": "\n[Мод-лоадер] Настраиваю NeoForge для {v}...",
-        "neo_no_module": "[Лаунчер] Модуль NeoForge недоступен в вашей minecraft-launcher-lib.",
-        "neo_update": "[Лаунчер] Обновите: pip install --upgrade minecraft-launcher-lib",
-        "neo_none": "[Лаунчер] NeoForge для {v} не найден. Переключаюсь на Vanilla.",
-        "neo_recommended": "[Мод-лоадер] Рекомендуемый NeoForge: {v}",
-        "neo_using": "[Лаунчер] Использую NeoForge: {v}",
-        "neo_error": "[Лаунчер] Ошибка NeoForge: {err}. Переключаюсь на Vanilla.",
+        "neoforge_setup": "\n[Мод-лоадер] Настраиваю NeoForge для {v}...",
+        "neoforge_unavailable": "[Лаунчер] Модуль NeoForge недоступен в вашей minecraft-launcher-lib.",
+        "neoforge_update": "[Лаунчер] Обновите её: pip install --upgrade minecraft-launcher-lib",
+        "neoforge_none": "[Лаунчер] NeoForge для {v} не найден. Переключаюсь на Vanilla.",
+        "neoforge_recommended": "[Мод-лоадер] Рекомендуемый NeoForge: {v}",
+        "neoforge_using": "[Лаунчер] Использую NeoForge: {v}",
+        "neoforge_error": "[Лаунчер] Ошибка NeoForge: {err}. Переключаюсь на Vanilla.",
 
         "running_vanilla": "[Лаунчер] Запускаю Vanilla {v}",
         "net_error": "\n[Сеть] Ошибка при настройке: {err}",
@@ -343,22 +344,21 @@ import requests
 from urllib.parse import urlparse
 import minecraft_launcher_lib
 
-# Optional NeoForge module — may be absent in older library versions
+# NeoForge module may be missing in older library versions
 try:
     from minecraft_launcher_lib import neoforge as neoforge_lib
 except ImportError:
     neoforge_lib = None
 
 
-LAUNCHER_VERSION = "1.4.0.0"
+LAUNCHER_VERSION = "1.3.0.0"
 CHANGELOG = {
-    "1.4.0.0": [
-        "Multilingual UI (English / Russian)",
-        "Russian title: МАЙКЛ ЛАУНЧЕР",
+    "1.3.0.0": [
+        "Bilingual UI (English / Русский)",
+        "Cross-platform: Windows / macOS / Linux",
+        "macOS: JDK discovery, folder opening via 'open', portable JRE support",
         "Added NeoForge support (mode 5) — VPN required",
-        "Cross-platform: Windows, macOS, Linux",
-        "macOS: JDK discovery, folder opening via 'open', portable JRE",
-        "Forge + OptiFine support",
+        "Forge + OptiFine support (mode 4)",
         "Auto dependency install on first run",
         "PORTABLE: all data in .michael_launcher next to the launcher",
     ],
@@ -784,7 +784,7 @@ def find_java_path(required_major: int):
     return best
 
 
-# ------------------------- Open folder -------------------------
+# ------------------------- Open folder (cross-platform) -------------------------
 
 def open_folder(path: str):
     try:
@@ -862,7 +862,7 @@ def print_vpn_warning(loader_name: str, sources):
 # ------------------------- Main -------------------------
 
 print("=" * 45)
-print("  " + t("welcome"))
+print("  " + t("launcher_name"))
 print(t("version_line", v=LAUNCHER_VERSION))
 print(t("system_line", s=SYSTEM))
 print("=" * 45)
@@ -903,4 +903,167 @@ MODS_DIR = os.path.join(GAME_DIR, "mods")
 
 print(t("loading_hello", nick=user_nickname, v=MINECRAFT_VERSION))
 
-if mode_choice in ("2", "3",
+if mode_choice in ("2", "3", "4", "5"):
+    os.makedirs(MODS_DIR, exist_ok=True)
+    print(t("mods_folder", path=MODS_DIR))
+    print(t("mods_note"))
+    print(t("mods_opening"))
+    open_folder(MODS_DIR)
+
+java_path = find_java_path(REQUIRED_JAVA)
+if java_path:
+    print(t("java_using", path=java_path))
+else:
+    print(t("java_warn", v=REQUIRED_JAVA))
+
+target_version = MINECRAFT_VERSION
+
+try:
+    print(t("mc_sync", v=MINECRAFT_VERSION))
+    minecraft_launcher_lib.install.install_minecraft_version(
+        version=MINECRAFT_VERSION,
+        minecraft_directory=GAME_DIR,
+        callback=callback
+    )
+
+    # ---------- Fabric ----------
+    if mode_choice == "2":
+        print(t("fabric_setup", v=MINECRAFT_VERSION))
+        try:
+            minecraft_launcher_lib.fabric.install_fabric(
+                minecraft_version=MINECRAFT_VERSION,
+                minecraft_directory=GAME_DIR,
+                callback=callback
+            )
+            installed = minecraft_launcher_lib.utils.get_installed_versions(GAME_DIR)
+            fabric_v = next((v["id"] for v in installed
+                             if MINECRAFT_VERSION in v["id"] and "fabric" in v["id"].lower()), None)
+            if fabric_v:
+                target_version = fabric_v
+                print(t("fabric_using", v=fabric_v))
+            else:
+                print(t("fabric_failed"))
+        except Exception as e:
+            print(t("fabric_error", err=e))
+
+    # ---------- Forge ----------
+    elif mode_choice == "3":
+        print(t("forge_setup", v=MINECRAFT_VERSION))
+        try:
+            forge_ver = minecraft_launcher_lib.forge.find_forge_version(MINECRAFT_VERSION)
+            if not forge_ver:
+                print(t("forge_none", v=MINECRAFT_VERSION))
+            else:
+                print(t("forge_recommended", v=forge_ver))
+                installed_name = minecraft_launcher_lib.forge.install_forge(
+                    forge_ver, GAME_DIR, callback=callback, java=java_path
+                )
+                target_version = installed_name
+                print(t("forge_using", v=installed_name))
+        except Exception as e:
+            print(t("forge_error", err=e))
+
+    # ---------- Forge + OptiFine ----------
+    elif mode_choice == "4":
+        print(t("fo_setup", v=MINECRAFT_VERSION))
+        try:
+            optifine_ver = minecraft_launcher_lib.forge.find_optifine_version(MINECRAFT_VERSION)
+            if not optifine_ver:
+                print(t("fo_none", v=MINECRAFT_VERSION))
+                print(t("fo_try_forge"))
+                forge_ver = minecraft_launcher_lib.forge.find_forge_version(MINECRAFT_VERSION)
+                if forge_ver:
+                    installed_name = minecraft_launcher_lib.forge.install_forge(
+                        forge_ver, GAME_DIR, callback=callback, java=java_path
+                    )
+                    target_version = installed_name
+                    print(t("forge_using", v=installed_name))
+                else:
+                    print(t("forge_none", v=MINECRAFT_VERSION))
+            else:
+                print(t("fo_found", v=optifine_ver))
+                print(t("fo_installing"))
+                try:
+                    minecraft_launcher_lib.forge.install_optifine(
+                        optifine_ver, GAME_DIR, callback=callback, java=java_path
+                    )
+                except TypeError:
+                    minecraft_launcher_lib.forge.install_optifine(
+                        optifine_ver, GAME_DIR, callback=callback
+                    )
+
+                forge_ver = minecraft_launcher_lib.forge.find_forge_version(MINECRAFT_VERSION)
+                if not forge_ver:
+                    print(t("fo_no_forge"))
+                    installed = minecraft_launcher_lib.utils.get_installed_versions(GAME_DIR)
+                    optifine_v = next((v["id"] for v in installed
+                                       if MINECRAFT_VERSION in v["id"]
+                                       and "optifine" in v["id"].lower()), None)
+                    if optifine_v:
+                        target_version = optifine_v
+                        print(t("fo_using_of", v=optifine_v))
+                else:
+                    print(t("fo_combined", v=forge_ver))
+                    installed_name = minecraft_launcher_lib.forge.install_forge(
+                        forge_ver, GAME_DIR, callback=callback, java=java_path
+                    )
+                    target_version = installed_name
+                    print(t("fo_using_both", v=installed_name))
+        except Exception as e:
+            print(t("fo_error", err=e))
+
+    # ---------- NeoForge ----------
+    elif mode_choice == "5":
+        print(t("neoforge_setup", v=MINECRAFT_VERSION))
+        if neoforge_lib is None:
+            print(t("neoforge_unavailable"))
+            print(t("neoforge_update"))
+            print(t("forge_none", v=MINECRAFT_VERSION))
+        else:
+            try:
+                neoforge_ver = neoforge_lib.find_neoforge_version(MINECRAFT_VERSION)
+                if not neoforge_ver:
+                    print(t("neoforge_none", v=MINECRAFT_VERSION))
+                else:
+                    print(t("neoforge_recommended", v=neoforge_ver))
+                    try:
+                        installed_name = neoforge_lib.install_neoforge(
+                            neoforge_ver, GAME_DIR, callback=callback, java=java_path
+                        )
+                    except TypeError:
+                        installed_name = neoforge_lib.install_neoforge(
+                            neoforge_ver, GAME_DIR, callback=callback
+                        )
+                    target_version = installed_name
+                    print(t("neoforge_using", v=installed_name))
+            except Exception as e:
+                print(t("neoforge_error", err=e))
+
+    else:
+        print(t("running_vanilla", v=MINECRAFT_VERSION))
+
+except Exception as network_error:
+    print(t("net_error", err=network_error))
+    target_version = MINECRAFT_VERSION
+
+try:
+    options = {
+        "username": user_nickname,
+        "uuid": "00000000-0000-0000-0000-000000000000",
+        "token": "0",
+        "jvmArguments": ["-Xmx4G", "-Xms2G"]
+    }
+    if java_path:
+        options["executablePath"] = java_path
+
+    launch_command = minecraft_launcher_lib.command.get_minecraft_command(
+        target_version, GAME_DIR, options
+    )
+
+    print(t("launch_init", v=target_version, nick=user_nickname))
+    print(t("launch_enjoy"))
+    subprocess.run(launch_command)
+
+except Exception as launch_error:
+    print(t("crit_error", err=launch_error))
+    input(t("press_enter"))
