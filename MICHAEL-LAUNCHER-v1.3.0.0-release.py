@@ -1,5 +1,5 @@
 # ====================================================================
-# MICHAEL LAUNCHER / МАЙКЛ ЛАУНЧЕР — Version 1.3.0.0 (PORTABLE)
+# MICHAEL LAUNCHER / МАЙКЛ ЛАУНЧЕР — Version 1.3.0.0 (NON-PORTABLE)
 # Windows / macOS / Linux. Vanilla / Fabric / Forge / Forge+OptiFine / NeoForge
 # License: MIT
 # ====================================================================
@@ -23,7 +23,6 @@ LANG = "ru" if _lang_pick == "2" else "en"
 STRINGS = {
     "en": {
         "launcher_name": "MICHAEL LAUNCHER",
-
         "setup_header": "MICHAEL LAUNCHER — first-run setup",
         "setup_missing": "[Setup] Missing packages: {pkgs}",
         "setup_installing": "[Setup] Installing automatically, please wait...",
@@ -38,7 +37,7 @@ STRINGS = {
 
         "version_line": "      version {v}       ",
         "system_line": "      system: {s}       ",
-        "portable_folder": "[Portable] Data folder: {path}",
+        "data_folder": "[Data] Storage folder: {path}",
 
         "source_title": "\n=== Where to download Minecraft files from? ===",
         "source_1": "1 - Official Mojang (may be blocked)",
@@ -71,7 +70,7 @@ STRINGS = {
         "ver_cache": "[Launcher] Using cached version list (offline mode).",
         "ver_no_cache": "[Launcher] No cache. Using built-in version list.",
 
-        "java_portable": "[Launcher] Using portable Java: {path}",
+        "java_portable": "[Launcher] Using bundled Java: {path}",
         "java_using": "[Launcher] Using Java: {path}",
         "java_sys": "[Launcher] Fallback to system Java: {path}",
         "java_warn": "[Launcher] Warning: Java {v}+ not found, using system default.",
@@ -125,13 +124,13 @@ STRINGS = {
         "fo_using_both": "[Launcher] Using Forge+OptiFine: {v}",
         "fo_error": "[Launcher] Forge+OptiFine error: {err}. Falling back to Vanilla.",
 
-        "neoforge_setup": "\n[ModLoader] Setting up NeoForge for {v}...",
-        "neoforge_unavailable": "[Launcher] NeoForge module is not available in your minecraft-launcher-lib.",
-        "neoforge_update": "[Launcher] Update it with: pip install --upgrade minecraft-launcher-lib",
-        "neoforge_none": "[Launcher] No NeoForge version found for {v}. Falling back to Vanilla.",
-        "neoforge_recommended": "[ModLoader] Recommended NeoForge: {v}",
-        "neoforge_using": "[Launcher] Using NeoForge: {v}",
-        "neoforge_error": "[Launcher] NeoForge error: {err}. Falling back to Vanilla.",
+        "neo_setup": "\n[ModLoader] Setting up NeoForge for {v}...",
+        "neo_no_module": "[Launcher] NeoForge module not available in your minecraft-launcher-lib.",
+        "neo_update": "[Launcher] Update it with: pip install --upgrade minecraft-launcher-lib",
+        "neo_none": "[Launcher] No NeoForge version found for {v}. Falling back to Vanilla.",
+        "neo_recommended": "[ModLoader] Recommended NeoForge: {v}",
+        "neo_using": "[Launcher] Using NeoForge: {v}",
+        "neo_error": "[Launcher] NeoForge error: {err}. Falling back to Vanilla.",
 
         "running_vanilla": "[Launcher] Running Vanilla {v}",
         "net_error": "\n[Network Info] Error during setup: {err}",
@@ -144,7 +143,6 @@ STRINGS = {
     },
     "ru": {
         "launcher_name": "МАЙКЛ ЛАУНЧЕР",
-
         "setup_header": "МАЙКЛ ЛАУНЧЕР — первая настройка",
         "setup_missing": "[Установка] Отсутствуют пакеты: {pkgs}",
         "setup_installing": "[Установка] Устанавливаю автоматически, подождите...",
@@ -159,7 +157,7 @@ STRINGS = {
 
         "version_line": "      версия {v}       ",
         "system_line": "      система: {s}       ",
-        "portable_folder": "[Портативно] Папка данных: {path}",
+        "data_folder": "[Данные] Папка хранения: {path}",
 
         "source_title": "\n=== Откуда качать файлы Minecraft? ===",
         "source_1": "1 - Официальный Mojang (может быть заблокирован)",
@@ -192,7 +190,7 @@ STRINGS = {
         "ver_cache": "[Лаунчер] Использую кэш версий (офлайн-режим).",
         "ver_no_cache": "[Лаунчер] Нет кэша. Использую встроенный список версий.",
 
-        "java_portable": "[Лаунчер] Использую портативную Java: {path}",
+        "java_portable": "[Лаунчер] Использую встроенную Java: {path}",
         "java_using": "[Лаунчер] Использую Java: {path}",
         "java_sys": "[Лаунчер] Использую системную Java: {path}",
         "java_warn": "[Лаунчер] Внимание: Java {v}+ не найдена, использую системную по умолчанию.",
@@ -246,13 +244,13 @@ STRINGS = {
         "fo_using_both": "[Лаунчер] Использую Forge+OptiFine: {v}",
         "fo_error": "[Лаунчер] Ошибка Forge+OptiFine: {err}. Переключаюсь на Vanilla.",
 
-        "neoforge_setup": "\n[Мод-лоадер] Настраиваю NeoForge для {v}...",
-        "neoforge_unavailable": "[Лаунчер] Модуль NeoForge недоступен в вашей minecraft-launcher-lib.",
-        "neoforge_update": "[Лаунчер] Обновите её: pip install --upgrade minecraft-launcher-lib",
-        "neoforge_none": "[Лаунчер] NeoForge для {v} не найден. Переключаюсь на Vanilla.",
-        "neoforge_recommended": "[Мод-лоадер] Рекомендуемый NeoForge: {v}",
-        "neoforge_using": "[Лаунчер] Использую NeoForge: {v}",
-        "neoforge_error": "[Лаунчер] Ошибка NeoForge: {err}. Переключаюсь на Vanilla.",
+        "neo_setup": "\n[Мод-лоадер] Настраиваю NeoForge для {v}...",
+        "neo_no_module": "[Лаунчер] Модуль NeoForge недоступен в вашей minecraft-launcher-lib.",
+        "neo_update": "[Лаунчер] Обновите: pip install --upgrade minecraft-launcher-lib",
+        "neo_none": "[Лаунчер] NeoForge для {v} не найден. Переключаюсь на Vanilla.",
+        "neo_recommended": "[Мод-лоадер] Рекомендуемый NeoForge: {v}",
+        "neo_using": "[Лаунчер] Использую NeoForge: {v}",
+        "neo_error": "[Лаунчер] Ошибка NeoForge: {err}. Переключаюсь на Vanilla.",
 
         "running_vanilla": "[Лаунчер] Запускаю Vanilla {v}",
         "net_error": "\n[Сеть] Ошибка при настройке: {err}",
@@ -344,7 +342,6 @@ import requests
 from urllib.parse import urlparse
 import minecraft_launcher_lib
 
-# NeoForge module may be missing in older library versions
 try:
     from minecraft_launcher_lib import neoforge as neoforge_lib
 except ImportError:
@@ -355,29 +352,40 @@ LAUNCHER_VERSION = "1.3.0.0"
 CHANGELOG = {
     "1.3.0.0": [
         "Bilingual UI (English / Русский)",
-        "Cross-platform: Windows / macOS / Linux",
-        "macOS: JDK discovery, folder opening via 'open', portable JRE support",
+        "Russian title: МАЙКЛ ЛАУНЧЕР",
         "Added NeoForge support (mode 5) — VPN required",
-        "Forge + OptiFine support (mode 4)",
+        "Cross-platform: Windows, macOS, Linux",
+        "macOS: JDK discovery, folder opening via 'open'",
+        "Forge + OptiFine support",
         "Auto dependency install on first run",
-        "PORTABLE: all data in .michael_launcher next to the launcher",
+        "NON-PORTABLE: data stored in the standard user folder",
     ],
 }
 
-# ------------------------- Portable paths -------------------------
+# ------------------------- Standard user paths (NON-PORTABLE) -------------------------
 
-def get_launcher_dir() -> str:
-    if getattr(sys, "frozen", False):
-        return os.path.dirname(os.path.abspath(sys.executable))
-    return os.path.dirname(os.path.abspath(__file__))
+def get_user_data_dir() -> str:
+    """Standard per-user data directory for each OS."""
+    if SYSTEM == "Windows":
+        appdata = os.environ.get("APPDATA") or os.path.expanduser("~")
+        return os.path.join(appdata, ".michael_launcher")
+    elif SYSTEM == "Darwin":  # macOS
+        return os.path.join(
+            os.path.expanduser("~/Library/Application Support"),
+            ".michael_launcher",
+        )
+    else:  # Linux / other Unix
+        xdg = os.environ.get("XDG_DATA_HOME") or os.path.join(
+            os.path.expanduser("~"), ".local", "share"
+        )
+        return os.path.join(xdg, ".michael_launcher")
 
 
-LAUNCHER_DIR = get_launcher_dir()
-BASE_DIR = os.path.join(LAUNCHER_DIR, ".michael_launcher")
+BASE_DIR = get_user_data_dir()
 GAME_DIR = os.path.join(BASE_DIR, "minecraft")
 NICK_DB = os.path.join(BASE_DIR, "nicknames.json")
 VERSIONS_CACHE = os.path.join(BASE_DIR, "versions_cache.json")
-PORTABLE_JRE = os.path.join(BASE_DIR, "jre")
+PORTABLE_JRE = os.path.join(BASE_DIR, "jre")  # optional bundled JRE
 
 MOJANG_MANIFEST = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
 
@@ -730,7 +738,7 @@ def choose_version() -> str:
         print(t("ver_invalid"))
 
 
-# ------------------------- Java search (cross-platform) -------------------------
+# ------------------------- Java search -------------------------
 
 def find_portable_java():
     for exe_name in ("java", "javaw.exe", "java.exe"):
@@ -784,7 +792,7 @@ def find_java_path(required_major: int):
     return best
 
 
-# ------------------------- Open folder (cross-platform) -------------------------
+# ------------------------- Open folder -------------------------
 
 def open_folder(path: str):
     try:
@@ -866,7 +874,7 @@ print("  " + t("launcher_name"))
 print(t("version_line", v=LAUNCHER_VERSION))
 print(t("system_line", s=SYSTEM))
 print("=" * 45)
-print(t("portable_folder", path=BASE_DIR))
+print(t("data_folder", path=BASE_DIR))
 
 os.makedirs(BASE_DIR, exist_ok=True)
 
@@ -1014,30 +1022,30 @@ try:
 
     # ---------- NeoForge ----------
     elif mode_choice == "5":
-        print(t("neoforge_setup", v=MINECRAFT_VERSION))
+        print(t("neo_setup", v=MINECRAFT_VERSION))
         if neoforge_lib is None:
-            print(t("neoforge_unavailable"))
-            print(t("neoforge_update"))
-            print(t("forge_none", v=MINECRAFT_VERSION))
+            print(t("neo_no_module"))
+            print(t("neo_update"))
+            print(t("neo_none", v=MINECRAFT_VERSION))
         else:
             try:
-                neoforge_ver = neoforge_lib.find_neoforge_version(MINECRAFT_VERSION)
-                if not neoforge_ver:
-                    print(t("neoforge_none", v=MINECRAFT_VERSION))
+                neo_ver = neoforge_lib.find_neoforge_version(MINECRAFT_VERSION)
+                if not neo_ver:
+                    print(t("neo_none", v=MINECRAFT_VERSION))
                 else:
-                    print(t("neoforge_recommended", v=neoforge_ver))
+                    print(t("neo_recommended", v=neo_ver))
                     try:
                         installed_name = neoforge_lib.install_neoforge(
-                            neoforge_ver, GAME_DIR, callback=callback, java=java_path
+                            neo_ver, GAME_DIR, callback=callback, java=java_path
                         )
                     except TypeError:
                         installed_name = neoforge_lib.install_neoforge(
-                            neoforge_ver, GAME_DIR, callback=callback
+                            neo_ver, GAME_DIR, callback=callback
                         )
                     target_version = installed_name
-                    print(t("neoforge_using", v=installed_name))
+                    print(t("neo_using", v=installed_name))
             except Exception as e:
-                print(t("neoforge_error", err=e))
+                print(t("neo_error", err=e))
 
     else:
         print(t("running_vanilla", v=MINECRAFT_VERSION))
