@@ -1,5 +1,5 @@
 # ====================================================================
-# MICHAEL LAUNCHER / МАЙКЛ ЛАУНЧЕР — Version 1.4.0.0 (PORTABLE)
+# MICHAEL LAUNCHER / МАЙКЛ ЛАУНЧЕР — Version 1.4.0.0 (NON-PORTABLE)
 # Windows / macOS / Linux. Vanilla / Fabric / Forge / Forge+OptiFine / NeoForge
 # Microsoft Auth via mcauth3 (no own Azure app required)
 # License: MIT
@@ -12,12 +12,14 @@ import platform
 
 SYSTEM = platform.system()  # 'Windows', 'Darwin', 'Linux'
 
+
 # ==================== LANGUAGE / ЯЗЫК ====================
 print("Choose language / Выберите язык:")
 print("1 - English")
 print("2 - Русский")
 _lang_pick = input("Your choice / Ваш выбор [1-2, Enter = 1]: ").strip()
 LANG = "ru" if _lang_pick == "2" else "en"
+
 
 STRINGS = {
     "en": {
@@ -33,9 +35,11 @@ STRINGS = {
         "setup_error": "[Setup] ERROR: {err}",
         "setup_done": "[Setup] Done! Continuing...",
         "press_enter": "Press Enter to close...",
+
         "version_line": "      version {v}       ",
         "system_line": "      system: {s}       ",
-        "portable_folder": "[Portable] Data folder: {path}",
+        "data_folder": "[Data] Storage folder: {path}",
+
         "source_title": "\n=== Where to download Minecraft files from? ===",
         "source_1": "1 - Official Mojang (may be blocked)",
         "source_2": "2 - BMCLAPI (mirror #1, recommended)",
@@ -49,10 +53,12 @@ STRINGS = {
         "mirror_status": "[Mirror] {name} returned {code}, trying next...",
         "mirror_no_response": "[Mirror] {name} did not respond ({err}), trying next...",
         "mirror_failed": "[Mirror] All mirrors failed, downloading directly: {url}",
+
         "login_title": "\nChoose login type:",
         "login_offline": "1 - Offline (by nickname)",
         "login_ms": "2 - Microsoft (licensed account)",
         "login_prompt": "Enter 1 or 2 [Enter = 1]: ",
+        
         "ms_auth_start": "\n[Microsoft] Starting authorization...",
         "ms_auth_url": "[Microsoft] Open this link in a browser:",
         "ms_auth_code": "CODE: {code}",
@@ -61,12 +67,14 @@ STRINGS = {
         "ms_auth_refresh": "[Microsoft] Restoring previous session...",
         "ms_auth_fail": "[Microsoft] Login failed: {err}. Falling back to offline mode.",
         "ms_auth_press": "Press Enter after you finish logging in...",
+
         "nick_enter": "\nEnter your in-game nickname: ",
         "nick_empty": "[Launcher] Empty nickname, using default.",
         "nick_choose": "\nChoose nickname:",
         "nick_own": "0 - Enter my own nickname",
         "nick_prompt": "Enter number: ",
         "nick_chosen": "[Launcher] Nickname chosen: {nick}",
+
         "ver_loading": "\nLoading version list...",
         "ver_found": "[Launcher] Found {n} releases",
         "ver_page": "\n--- Page {p} of {total} ---",
@@ -76,10 +84,12 @@ STRINGS = {
         "ver_invalid": "Invalid choice, try again.",
         "ver_cache": "[Launcher] Using cached version list (offline mode).",
         "ver_no_cache": "[Launcher] No cache. Using built-in version list.",
+
         "java_portable": "[Launcher] Using bundled Java: {path}",
         "java_using": "[Launcher] Using Java: {path}",
         "java_sys": "[Launcher] Fallback to system Java: {path}",
         "java_warn": "[Launcher] Warning: Java {v}+ not found, using system default.",
+
         "mode_title": "\nChoose version type for {v}:",
         "mode_1": "1 - Vanilla (Clean Game)",
         "mode_2": "2 - Fabric (With Mods)",
@@ -87,11 +97,13 @@ STRINGS = {
         "mode_4": "4 - Forge + OptiFine (With Mods + Shaders) — VPN required",
         "mode_5": "5 - NeoForge (With Mods) — VPN required",
         "mode_prompt": "Enter 1, 2, 3, 4 or 5: ",
+
         "loading_hello": "\n[Loading] Hello, {nick}! Running setup for {v}...",
         "mods_folder": "[Launcher] Mods folder: {path}",
         "mods_note": "[Launcher] Note: this folder is shared between all modded versions.",
         "mods_opening": "[Launcher] Opening mods folder for you...",
         "mods_open_fail": "[Launcher] Could not open folder automatically: {err}",
+
         "vpn_header": "{loader} — SYSTEM VPN REQUIRED",
         "vpn_downloads": "{loader} downloads files directly from:",
         "vpn_blocked": "These servers are often blocked or slow in Russia.",
@@ -103,16 +115,19 @@ STRINGS = {
         "vpn_tip2": "then continue. Installation may take several minutes.",
         "vpn_prompt": "Continue with VPN ON? [Y/n]: ",
         "vpn_cancel": "[Launcher] Cancelled by user. Falling back to Vanilla.",
+
         "mc_sync": "[Minecraft] Syncing base version {v} files...",
         "fabric_setup": "\n[ModLoader] Installing Fabric Loader for {v}...",
         "fabric_using": "[Launcher] Using Fabric: {v}",
         "fabric_failed": "[Launcher] Fabric install failed. Falling back to Vanilla.",
         "fabric_error": "[Launcher] Fabric error: {err}. Falling back to Vanilla.",
+
         "forge_setup": "\n[ModLoader] Setting up Forge for {v}...",
         "forge_none": "[Launcher] No Forge version found for {v}. Falling back to Vanilla.",
         "forge_recommended": "[ModLoader] Recommended Forge: {v}",
         "forge_using": "[Launcher] Using Forge: {v}",
         "forge_error": "[Launcher] Forge error: {err}. Falling back to Vanilla.",
+
         "fo_setup": "\n[ModLoader] Setting up Forge + OptiFine for {v}...",
         "fo_none": "[Launcher] No OptiFine version found for {v}.",
         "fo_try_forge": "[Launcher] Trying Forge only...",
@@ -123,6 +138,7 @@ STRINGS = {
         "fo_combined": "[ModLoader] Installing Forge: {v} (combined with OptiFine)",
         "fo_using_both": "[Launcher] Using Forge+OptiFine: {v}",
         "fo_error": "[Launcher] Forge+OptiFine error: {err}. Falling back to Vanilla.",
+
         "neo_setup": "\n[ModLoader] Setting up NeoForge for {v}...",
         "neo_no_module": "[Launcher] NeoForge module not available in your minecraft-launcher-lib.",
         "neo_update": "[Launcher] Update it with: pip install --upgrade minecraft-launcher-lib",
@@ -130,11 +146,13 @@ STRINGS = {
         "neo_recommended": "[ModLoader] Recommended NeoForge: {v}",
         "neo_using": "[Launcher] Using NeoForge: {v}",
         "neo_error": "[Launcher] NeoForge error: {err}. Falling back to Vanilla.",
+
         "running_vanilla": "[Launcher] Running Vanilla {v}",
         "net_error": "\n[Network Info] Error during setup: {err}",
         "launch_init": "\n[Launch] Initializing Minecraft {v} as {nick}!",
         "launch_enjoy": "Enjoy your game!",
         "crit_error": "\n[Critical Error] Runtime crash: {err}",
+
         "status_prefix": "[Status] {s}",
         "downloading": "\rDownloading game assets: [{cur}/{max}] {pct}%",
     },
@@ -151,9 +169,11 @@ STRINGS = {
         "setup_error": "[Установка] ОШИБКА: {err}",
         "setup_done": "[Установка] Готово! Продолжаем...",
         "press_enter": "Нажмите Enter, чтобы закрыть...",
+
         "version_line": "      версия {v}       ",
         "system_line": "      система: {s}       ",
-        "portable_folder": "[Портативно] Папка данных: {path}",
+        "data_folder": "[Данные] Папка хранения: {path}",
+
         "source_title": "\n=== Откуда качать файлы Minecraft? ===",
         "source_1": "1 - Официальный Mojang (может быть заблокирован)",
         "source_2": "2 - BMCLAPI (зеркало #1, рекомендуется)",
@@ -167,10 +187,12 @@ STRINGS = {
         "mirror_status": "[Зеркало] {name} вернул {code}, пробую следующее...",
         "mirror_no_response": "[Зеркало] {name} не ответил ({err}), пробую следующее...",
         "mirror_failed": "[Зеркало] Все зеркала не сработали, качаю напрямую: {url}",
+
         "login_title": "\nВыберите тип входа:",
         "login_offline": "1 - Офлайн (по никнейму)",
         "login_ms": "2 - Microsoft (лицензия)",
         "login_prompt": "Введите 1 или 2 [Enter = 1]: ",
+        
         "ms_auth_start": "\n[Microsoft] Начинаю авторизацию...",
         "ms_auth_url": "[Microsoft] Откройте эту ссылку в браузере:",
         "ms_auth_code": "КОД: {code}",
@@ -179,12 +201,14 @@ STRINGS = {
         "ms_auth_refresh": "[Microsoft] Восстанавливаю прошлую сессию...",
         "ms_auth_fail": "[Microsoft] Ошибка входа: {err}. Переключаюсь на офлайн.",
         "ms_auth_press": "Нажмите Enter после того, как войдёте...",
+
         "nick_enter": "\nВведите ваш игровой никнейм: ",
         "nick_empty": "[Лаунчер] Пустой никнейм, использую стандартный.",
         "nick_choose": "\nВыбор никнейма:",
         "nick_own": "0 - Ввести свой никнейм",
         "nick_prompt": "Введите номер: ",
         "nick_chosen": "[Лаунчер] Никнейм выбран: {nick}",
+
         "ver_loading": "\nЗагрузка списка версий...",
         "ver_found": "[Лаунчер] Найдено {n} релизов",
         "ver_page": "\n--- Страница {p} из {total} ---",
@@ -194,10 +218,12 @@ STRINGS = {
         "ver_invalid": "Неверный выбор, попробуйте снова.",
         "ver_cache": "[Лаунчер] Использую кэш версий (офлайн-режим).",
         "ver_no_cache": "[Лаунчер] Нет кэша. Использую встроенный список версий.",
+
         "java_portable": "[Лаунчер] Использую встроенную Java: {path}",
         "java_using": "[Лаунчер] Использую Java: {path}",
         "java_sys": "[Лаунчер] Использую системную Java: {path}",
         "java_warn": "[Лаунчер] Внимание: Java {v}+ не найдена, использую системную по умолчанию.",
+
         "mode_title": "\nВыберите тип версии для {v}:",
         "mode_1": "1 - Vanilla (чистая игра)",
         "mode_2": "2 - Fabric (с модами)",
@@ -205,11 +231,13 @@ STRINGS = {
         "mode_4": "4 - Forge + OptiFine (с модами и шейдерами) — нужен VPN",
         "mode_5": "5 - NeoForge (с модами) — нужен VPN",
         "mode_prompt": "Введите 1, 2, 3, 4 или 5: ",
+
         "loading_hello": "\n[Загрузка] Привет, {nick}! Настраиваю {v}...",
         "mods_folder": "[Лаунчер] Папка модов: {path}",
         "mods_note": "[Лаунчер] Примечание: эта папка общая для всех модифицированных версий.",
         "mods_opening": "[Лаунчер] Открываю папку модов...",
         "mods_open_fail": "[Лаунчер] Не удалось открыть папку автоматически: {err}",
+
         "vpn_header": "{loader} — НУЖЕН СИСТЕМНЫЙ VPN",
         "vpn_downloads": "{loader} скачивает файлы напрямую с:",
         "vpn_blocked": "Эти серверы часто заблокированы или медленные в России.",
@@ -221,16 +249,19 @@ STRINGS = {
         "vpn_tip2": "затем продолжите. Установка может занять несколько минут.",
         "vpn_prompt": "Продолжить с включённым VPN? [Y/n]: ",
         "vpn_cancel": "[Лаунчер] Отменено пользователем. Переключаюсь на Vanilla.",
+
         "mc_sync": "[Minecraft] Синхронизирую файлы базовой версии {v}...",
         "fabric_setup": "\n[Мод-лоадер] Устанавливаю Fabric Loader для {v}...",
         "fabric_using": "[Лаунчер] Использую Fabric: {v}",
         "fabric_failed": "[Лаунчер] Установка Fabric не удалась. Переключаюсь на Vanilla.",
         "fabric_error": "[Лаунчер] Ошибка Fabric: {err}. Переключаюсь на Vanilla.",
+
         "forge_setup": "\n[Мод-лоадер] Настраиваю Forge для {v}...",
         "forge_none": "[Лаунчер] Forge для {v} не найден. Переключаюсь на Vanilla.",
         "forge_recommended": "[Мод-лоадер] Рекомендуемый Forge: {v}",
         "forge_using": "[Лаунчер] Использую Forge: {v}",
         "forge_error": "[Лаунчер] Ошибка Forge: {err}. Переключаюсь на Vanilla.",
+
         "fo_setup": "\n[Мод-лоадер] Настраиваю Forge + OptiFine для {v}...",
         "fo_none": "[Лаунчер] OptiFine для {v} не найден.",
         "fo_try_forge": "[Лаунчер] Пробую только Forge...",
@@ -241,6 +272,7 @@ STRINGS = {
         "fo_combined": "[Мод-лоадер] Устанавливаю Forge: {v} (вместе с OptiFine)",
         "fo_using_both": "[Лаунчер] Использую Forge+OptiFine: {v}",
         "fo_error": "[Лаунчер] Ошибка Forge+OptiFine: {err}. Переключаюсь на Vanilla.",
+
         "neo_setup": "\n[Мод-лоадер] Настраиваю NeoForge для {v}...",
         "neo_no_module": "[Лаунчер] Модуль NeoForge недоступен в вашей minecraft-launcher-lib.",
         "neo_update": "[Лаунчер] Обновите: pip install --upgrade minecraft-launcher-lib",
@@ -248,19 +280,23 @@ STRINGS = {
         "neo_recommended": "[Мод-лоадер] Рекомендуемый NeoForge: {v}",
         "neo_using": "[Лаунчер] Использую NeoForge: {v}",
         "neo_error": "[Лаунчер] Ошибка NeoForge: {err}. Переключаюсь на Vanilla.",
+
         "running_vanilla": "[Лаунчер] Запускаю Vanilla {v}",
         "net_error": "\n[Сеть] Ошибка при настройке: {err}",
         "launch_init": "\n[Запуск] Запускаю Minecraft {v} от имени {nick}!",
         "launch_enjoy": "Приятной игры!",
         "crit_error": "\n[Критическая ошибка] Сбой: {err}",
+
         "status_prefix": "[Статус] {s}",
         "downloading": "\rСкачивание ресурсов: [{cur}/{max}] {pct}%",
     },
 }
 
+
 def t(key: str, **kwargs) -> str:
     s = STRINGS[LANG].get(key, STRINGS["en"].get(key, key))
     return s.format(**kwargs) if kwargs else s
+
 
 # ------------------------- Dependency bootstrap -------------------------
 def ensure_dependencies():
@@ -331,6 +367,7 @@ def ensure_dependencies():
 
     print(t("setup_done"))
 
+
 ensure_dependencies()
 
 import json
@@ -345,6 +382,7 @@ try:
 except ImportError:
     neoforge_lib = None
 
+
 LAUNCHER_VERSION = "1.4.0.0"
 CHANGELOG = {
     "1.4.0.0": [
@@ -352,19 +390,30 @@ CHANGELOG = {
         "No own Azure app registration required",
         "Auth tokens cached in auth_cache.json for auto-login",
         "Offline mode remains available",
-        "Cross-platform: Windows, macOS, Linux (PORTABLE)",
+        "Cross-platform: Windows, macOS, Linux (NON-PORTABLE)",
         "Forge, Forge+OptiFine, NeoForge, Fabric",
     ],
 }
 
-# ------------------------- Portable paths -------------------------
-def get_launcher_dir() -> str:
-    if getattr(sys, "frozen", False):
-        return os.path.dirname(os.path.abspath(sys.executable))
-    return os.path.dirname(os.path.abspath(__file__))
+# ------------------------- Standard user paths (NON-PORTABLE) -------------------------
 
-LAUNCHER_DIR = get_launcher_dir()
-BASE_DIR = os.path.join(LAUNCHER_DIR, ".michael_launcher")
+def get_user_data_dir() -> str:
+    if SYSTEM == "Windows":
+        appdata = os.environ.get("APPDATA") or os.path.expanduser("~")
+        return os.path.join(appdata, ".michael_launcher")
+    elif SYSTEM == "Darwin":  # macOS
+        return os.path.join(
+            os.path.expanduser("~/Library/Application Support"),
+            ".michael_launcher",
+        )
+    else:  # Linux
+        xdg = os.environ.get("XDG_DATA_HOME") or os.path.join(
+            os.path.expanduser("~"), ".local", "share"
+        )
+        return os.path.join(xdg, ".michael_launcher")
+
+
+BASE_DIR = get_user_data_dir()
 GAME_DIR = os.path.join(BASE_DIR, "minecraft")
 NICK_DB = os.path.join(BASE_DIR, "nicknames.json")
 VERSIONS_CACHE = os.path.join(BASE_DIR, "versions_cache.json")
@@ -385,24 +434,41 @@ FALLBACK_VERSIONS = [
 
 if SYSTEM == "Windows":
     JAVA_CANDIDATES = [
-        r"C:\Program Files\Java", r"C:\Program Files\Eclipse Adoptium",
-        r"C:\Program Files (x86)\Java", r"C:\Program Files\Microsoft\jdk-21",
-        r"C:\Program Files\Microsoft\jdk-17", r"C:\Program Files\Microsoft\jdk-11",
+        r"C:\Program Files\Java",
+        r"C:\Program Files\Eclipse Adoptium",
+        r"C:\Program Files (x86)\Java",
+        r"C:\Program Files\Microsoft\jdk-21",
+        r"C:\Program Files\Microsoft\jdk-17",
+        r"C:\Program Files\Microsoft\jdk-11",
     ]
 else:
     JAVA_CANDIDATES = [
-        "/Library/Java/JavaVirtualMachines", "/System/Library/Java/JavaVirtualMachines",
-        os.path.expanduser("~/Library/Java/JavaVirtualMachines"), "/opt/homebrew/opt",
-        "/usr/local/opt", "/opt/homebrew/Cellar", "/usr/local/Cellar", "/usr/lib/jvm",
+        "/Library/Java/JavaVirtualMachines",
+        "/System/Library/Java/JavaVirtualMachines",
+        os.path.expanduser("~/Library/Java/JavaVirtualMachines"),
+        "/opt/homebrew/opt",
+        "/usr/local/opt",
+        "/opt/homebrew/Cellar",
+        "/usr/local/Cellar",
+        "/usr/lib/jvm",
     ]
 
 DEFAULT_NICKNAMES = []
+
 VERSION_HISTORY = {
-    "1.0": ("Official release", "2011"), "1.8": ("Bountiful Update", "2014"),
-    "1.12": ("World of Color", "2017"), "1.16": ("Nether Update", "2020"),
-    "1.18": ("Caves & Cliffs", "2021"), "1.20": ("Trails & Tales", "2023"),
-    "1.21": ("Tricky Trials", "2024"), "26": ("New numbering", "2026"),
+    "1.0":  ("Official release: The End and the Ender Dragon", "November 18, 2011"),
+    "1.8":  ("Bountiful Update: oceans, prismarine, armor stands", "September 2014"),
+    "1.12": ("World of Color Update: concrete, recipe book, parrots", "June 2017"),
+    "1.13": ("Update Aquatic: dolphins, coral, tridents", "July 2018"),
+    "1.16": ("Nether Update: netherite, new Nether biomes", "June 2020"),
+    "1.17": ("Caves & Cliffs Part 1: new ores", "2021"),
+    "1.18": ("Caves & Cliffs Part 2: new cave and mountain generation", "2021"),
+    "1.19": ("The Wild Update: Deep Dark, Warden, mangrove swamps", "June 2022"),
+    "1.20": ("Trails & Tales: archaeology, cherry biome, sniffers", "June 2023"),
+    "1.21": ("Tricky Trials: trial chambers, breeze, copper blocks", "June 2024"),
+    "26":   ("2026 updates: new version numbering system", "2026"),
 }
+
 
 # ==================== MIRRORS ====================
 MIRRORS = [
@@ -416,15 +482,18 @@ MIRRORS = [
             "libraries.minecraft.net": "bmclapi2.bangbang93.com",
         },
         "special": {
-            "resources.download.minecraft.net": lambda path: f"/assets/{path.split('/')[-1]}" if path.count('/') >= 2 else None,
+            "resources.download.minecraft.net": lambda path: f"/assets/{path.split('/')[-1]}"
+            if path.count('/') >= 2 else None,
             "libraries.minecraft.net": lambda path: f"/maven{path}",
         },
     },
     {
         "name": "FastMinecraftMirror",
         "replacements": {
-            "launchermeta.mojang.com": "fastmcmirror.org", "piston-meta.mojang.com": "fastmcmirror.org",
-            "launcher.mojang.com": "fastmcmirror.org", "resources.download.minecraft.net": "fastmcmirror.org",
+            "launchermeta.mojang.com": "fastmcmirror.org",
+            "piston-meta.mojang.com": "fastmcmirror.org",
+            "launcher.mojang.com": "fastmcmirror.org",
+            "resources.download.minecraft.net": "fastmcmirror.org",
             "libraries.minecraft.net": "fastmcmirror.org",
         },
         "special": {}
@@ -432,13 +501,16 @@ MIRRORS = [
     {
         "name": "MCLib",
         "replacements": {
-            "launchermeta.mojang.com": "mclib.org", "piston-meta.mojang.com": "mclib.org",
-            "launcher.mojang.com": "mclib.org", "resources.download.minecraft.net": "mclib.org",
+            "launchermeta.mojang.com": "mclib.org",
+            "piston-meta.mojang.com": "mclib.org",
+            "launcher.mojang.com": "mclib.org",
+            "resources.download.minecraft.net": "mclib.org",
             "libraries.minecraft.net": "mclib.org",
         },
         "special": {}
     },
 ]
+
 
 def choose_download_source():
     print(t("source_title"))
@@ -448,31 +520,43 @@ def choose_download_source():
     print(t("source_4"))
     print(t("source_5"))
     choice = input(t("source_prompt")).strip()
-    if choice == "1": return []
-    if choice == "2": return [MIRRORS[0], MIRRORS[1], MIRRORS[2]]
-    if choice == "3": return [MIRRORS[1], MIRRORS[0], MIRRORS[2]]
-    if choice == "4": return [MIRRORS[2], MIRRORS[0], MIRRORS[1]]
+
+    if choice == "1":
+        return []
+    if choice == "2":
+        return [MIRRORS[0], MIRRORS[1], MIRRORS[2]]
+    if choice == "3":
+        return [MIRRORS[1], MIRRORS[0], MIRRORS[2]]
+    if choice == "4":
+        return [MIRRORS[2], MIRRORS[0], MIRRORS[1]]
     return list(MIRRORS)
+
 
 def apply_mirror_patch(mirrors_to_use):
     if not mirrors_to_use:
         print(t("source_official"))
         return
+
     mojang_hosts = set()
     for m in mirrors_to_use:
         mojang_hosts.update(m["replacements"].keys())
+
     _original_requests_get = requests.get
+
     def patched_get(url, *args, **kwargs):
         parsed = urlparse(url)
         if parsed.netloc in mojang_hosts:
             for mirror in mirrors_to_use:
-                if parsed.netloc not in mirror["replacements"]: continue
+                if parsed.netloc not in mirror["replacements"]:
+                    continue
                 new_host = mirror["replacements"][parsed.netloc]
                 new_path = parsed.path
-                if parsed.query: new_path += "?" + parsed.query
+                if parsed.query:
+                    new_path += "?" + parsed.query
                 if parsed.netloc in mirror.get("special", {}):
                     special_path = mirror["special"][parsed.netloc](parsed.path)
-                    if special_path is not None: new_path = special_path
+                    if special_path is not None:
+                        new_path = special_path
                 mirrored_url = f"https://{new_host}{new_path}"
                 try:
                     resp = _original_requests_get(mirrored_url, *args, **kwargs)
@@ -484,11 +568,15 @@ def apply_mirror_patch(mirrors_to_use):
                     print(t("mirror_no_response", name=mirror['name'], err=e.__class__.__name__))
             print(t("mirror_failed", url=url))
         return _original_requests_get(url, *args, **kwargs)
+
     requests.get = patched_get
     names = ", ".join(m["name"] for m in mirrors_to_use)
     print(t("source_mirrors", names=names))
+# =================================================
 
-# ------------------------- Helpers -------------------------
+
+# ------------------------- Version info -------------------------
+
 def get_version_info(version: str) -> str:
     if version in VERSION_HISTORY:
         name, date = VERSION_HISTORY[version]
@@ -504,20 +592,27 @@ def get_version_info(version: str) -> str:
             return f"{name} ({date})"
     return ""
 
+
+# ------------------------- Nickname DB -------------------------
+
 def load_nick_db() -> list:
     if os.path.isfile(NICK_DB):
         try:
             with open(NICK_DB, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            if isinstance(data, list): return data
-        except: pass
+            if isinstance(data, list):
+                return data
+        except (json.JSONDecodeError, OSError):
+            pass
     save_nick_db(DEFAULT_NICKNAMES)
     return list(DEFAULT_NICKNAMES)
+
 
 def save_nick_db(nicknames: list):
     os.makedirs(BASE_DIR, exist_ok=True)
     with open(NICK_DB, "w", encoding="utf-8") as f:
         json.dump(nicknames, f, ensure_ascii=False, indent=2)
+
 
 def add_nickname(nickname: str):
     nicknames = load_nick_db()
@@ -525,83 +620,123 @@ def add_nickname(nickname: str):
         nicknames.append(nickname)
         save_nick_db(nicknames)
 
+
 def save_versions_cache(versions: list):
     os.makedirs(BASE_DIR, exist_ok=True)
     with open(VERSIONS_CACHE, "w", encoding="utf-8") as f:
         json.dump(versions, f, indent=2)
+
 
 def load_versions_cache() -> list:
     if os.path.isfile(VERSIONS_CACHE):
         try:
             with open(VERSIONS_CACHE, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            if isinstance(data, list) and data: return data
-        except: pass
+            if isinstance(data, list) and data:
+                return data
+        except (json.JSONDecodeError, OSError):
+            pass
     return []
 
+
+# ------------------------- Progress -------------------------
+
 max_val = 0
-def set_status(status: str): print(t("status_prefix", s=status))
+
+def set_status(status: str):
+    print(t("status_prefix", s=status))
+
 def set_maximum(value: int):
     global max_val
     max_val = value
+
 def set_progress(value: int):
     global max_val
     if max_val > 0:
         percentage = int((value / max_val) * 100)
         print(t("downloading", cur=value, max=max_val, pct=percentage), end="", flush=True)
 
-callback = {"setStatus": set_status, "setMaximum": set_maximum, "setProgress": set_progress}
+callback = {
+    "setStatus": set_status,
+    "setMaximum": set_maximum,
+    "setProgress": set_progress
+}
 
-# ------------------------- Version List & Java -------------------------
+
+# ------------------------- Version list -------------------------
+
 def fetch_versions_online() -> list:
     utils = minecraft_launcher_lib.utils
+
     for attr in ("get_minecraft_version_list", "get_minecraft_versions"):
         fn = getattr(utils, attr, None)
-        if fn is None: continue
+        if fn is None:
+            continue
         try:
             data = fn()
-            if isinstance(data, dict) and "versions" in data: data = data["versions"]
-            if isinstance(data, list):
-                releases = [v["id"] for v in data if isinstance(v, dict) and v.get("type") == "release" and str(v.get("id", ""))[:1].isdigit()]
-                if releases: return releases
-        except: continue
+        except Exception:
+            continue
+        if isinstance(data, dict) and "versions" in data:
+            data = data["versions"]
+        if isinstance(data, list):
+            releases = [v["id"] for v in data
+                        if isinstance(v, dict)
+                        and v.get("type") == "release"
+                        and str(v.get("id", ""))[:1].isdigit()]
+            if releases:
+                return releases
+
     try:
         resp = requests.get(MOJANG_MANIFEST, timeout=10)
         resp.raise_for_status()
         data = resp.json()
-        releases = [v["id"] for v in data.get("versions", []) if v.get("type") == "release" and v["id"][:1].isdigit()]
-        if releases: return releases
-    except: pass
+        releases = [v["id"] for v in data.get("versions", [])
+                    if v.get("type") == "release" and v["id"][:1].isdigit()]
+        if releases:
+            return releases
+    except Exception:
+        pass
     return []
+
 
 def get_release_versions() -> list:
     releases = fetch_versions_online()
     if releases:
         save_versions_cache(releases)
         return releases
+
     cached = load_versions_cache()
     if cached:
         print(t("ver_cache"))
         return cached
+
     print(t("ver_no_cache"))
     return list(FALLBACK_VERSIONS)
 
+
 def get_required_java(version: str) -> int:
-    if not version.startswith("1."): return 21
+    if not version.startswith("1."):
+        return 21
     try:
         parts = version.split(".")
         minor = int(parts[1]) if len(parts) > 1 else 0
         patch = int(parts[2]) if len(parts) > 2 else 0
-    except ValueError: return 8
-    if minor > 20 or (minor == 20 and patch >= 5): return 21
-    if minor >= 18: return 17
-    if minor == 17: return 16
+    except ValueError:
+        return 8
+    if minor > 20 or (minor == 20 and patch >= 5):
+        return 21
+    if minor >= 18:
+        return 17
+    if minor == 17:
+        return 16
     return 8
+
 
 def choose_version() -> str:
     print(t("ver_loading"))
     versions = get_release_versions()
     print(t("ver_found", n=len(versions)))
+
     page = 0
     per_page = 15
     while True:
@@ -610,6 +745,7 @@ def choose_version() -> str:
         if not chunk:
             page = 0
             continue
+
         print(t("ver_page", p=page + 1, total=(len(versions) - 1) // per_page + 1))
         for i, ver in enumerate(chunk, start=1):
             java_req = get_required_java(ver)
@@ -619,47 +755,68 @@ def choose_version() -> str:
         print(t("ver_nav"))
         print(t("ver_or_type"))
         pick = input(t("ver_prompt")).strip().lower()
+
         if pick == "n":
-            if start + per_page < len(versions): page += 1
+            if start + per_page < len(versions):
+                page += 1
             continue
         if pick == "p":
-            if page > 0: page -= 1
+            if page > 0:
+                page -= 1
             continue
         if pick.isdigit() and 1 <= int(pick) <= len(chunk):
             return chunk[int(pick) - 1]
-        if pick in versions: return pick
+        if pick in versions:
+            return pick
         print(t("ver_invalid"))
+
+
+# ------------------------- Java search -------------------------
 
 def find_portable_java():
     for exe_name in ("java", "javaw.exe", "java.exe"):
         exe = os.path.join(PORTABLE_JRE, "bin", exe_name)
-        if os.path.isfile(exe): return exe
+        if os.path.isfile(exe):
+            return exe
     return None
+
 
 def find_java_path(required_major: int):
     portable = find_portable_java()
     if portable:
         print(t("java_portable", path=portable))
         return portable
+
     best = None
     for base in JAVA_CANDIDATES:
-        if not os.path.isdir(base): continue
-        try: entries = os.listdir(base)
-        except PermissionError: continue
+        if not os.path.isdir(base):
+            continue
+        try:
+            entries = os.listdir(base)
+        except PermissionError:
+            continue
         for folder in entries:
             full = os.path.join(base, folder)
-            if not os.path.isdir(full): continue
+            if not os.path.isdir(full):
+                continue
             candidates = [
-                os.path.join(full, "bin", "java"), os.path.join(full, "Contents", "Home", "bin", "java"),
-                os.path.join(full, "bin", "javaw.exe"), os.path.join(full, "bin", "java.exe"),
+                os.path.join(full, "bin", "java"),
+                os.path.join(full, "Contents", "Home", "bin", "java"),
+                os.path.join(full, "bin", "javaw.exe"),
+                os.path.join(full, "bin", "java.exe"),
             ]
             for exe in candidates:
-                if not os.path.isfile(exe): continue
+                if not os.path.isfile(exe):
+                    continue
                 digits = "".join(ch for ch in folder if ch.isdigit())
-                if not digits: continue
+                if not digits:
+                    continue
                 major = int(digits[:2]) if len(digits) >= 2 else int(digits)
-                if major == required_major: return exe
-                if major > required_major: best = exe
+                if major == required_major:
+                    return exe
+                if major > required_major:
+                    best = exe
+
     import shutil
     sys_java = shutil.which("java")
     if sys_java:
@@ -667,49 +824,76 @@ def find_java_path(required_major: int):
         return sys_java
     return best
 
+
+# ------------------------- Open folder -------------------------
+
 def open_folder(path: str):
     try:
-        if SYSTEM == "Windows": os.startfile(path)
-        elif SYSTEM == "Darwin": subprocess.Popen(["open", path])
-        else: subprocess.Popen(["xdg-open", path])
-    except Exception as e: print(t("mods_open_fail", err=e))
+        if SYSTEM == "Windows":
+            os.startfile(path)  # type: ignore[attr-defined]
+        elif SYSTEM == "Darwin":
+            subprocess.Popen(["open", path])
+        else:
+            subprocess.Popen(["xdg-open", path])
+    except Exception as e:
+        print(t("mods_open_fail", err=e))
+
+
+# ------------------------- Nickname selection (Offline) -------------------------
 
 def choose_nickname() -> str:
     nicknames = load_nick_db()
+
     if not nicknames:
         user_input = input(t("nick_enter")).strip()
-        if not user_input: return "MichaelPlayer"
+        if not user_input:
+            print(t("nick_empty"))
+            return "MichaelPlayer"
         add_nickname(user_input)
         return user_input
+
     print(t("nick_choose"))
     print(t("nick_own"))
     for i, nick in enumerate(nicknames, start=1):
         print(f"{i} - {nick}")
     pick = input(t("nick_prompt")).strip()
+
     if pick.isdigit() and 0 < int(pick) <= len(nicknames):
         chosen = nicknames[int(pick) - 1]
         print(t("nick_chosen", nick=chosen))
         return chosen
+
     user_input = input(t("nick_enter")).strip()
-    if not user_input: return "MichaelPlayer"
+    if not user_input:
+        print(t("nick_empty"))
+        return "MichaelPlayer"
     add_nickname(user_input)
     return user_input
 
-# ------------------------- Auth & VPN -------------------------
+
+# ------------------------- Microsoft Auth (mcauth3) -------------------------
+
 def load_auth_cache():
     if os.path.isfile(AUTH_CACHE):
         try:
-            with open(AUTH_CACHE, "r", encoding="utf-8") as f: return json.load(f)
-        except: pass
+            with open(AUTH_CACHE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
     return None
+
 
 def save_auth_cache(data):
     os.makedirs(BASE_DIR, exist_ok=True)
     with open(AUTH_CACHE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+
 def microsoft_login() -> tuple:
+    """Returns (username, uuid, access_token) or (None, None, None)."""
     cached = load_auth_cache()
+
+    # 1. Try to refresh existing session
     if cached and "refresh_token" in cached:
         print(t("ms_auth_refresh"))
         try:
@@ -721,19 +905,25 @@ def microsoft_login() -> tuple:
             token = refreshed["tokens"]["minecraft_access_token"]
             print(t("ms_auth_success", nick=nick))
             return nick, uid, token
-        except: pass
+        except Exception:
+            pass  # fallback to new login
+
+    # 2. New device-code login
     try:
         auth = mcauth3.MCMSA()
         print(t("ms_auth_start"))
         device_data = auth.start_auth()
+
         print()
         print(t("ms_auth_url"))
         print(f"  {device_data['verification_uri']}")
         print(t("ms_auth_code", code=device_data['user_code']))
         print(t("ms_auth_press"))
         input()
+
         print(t("ms_auth_wait"))
         result = auth.finish_auth(device_data)
+
         save_auth_cache(result)
         nick = result["profile"]["name"]
         uid = result["profile"]["id"]
@@ -744,13 +934,17 @@ def microsoft_login() -> tuple:
         print(t("ms_auth_fail", err=e))
         return None, None, None
 
+
+# ------------------------- VPN warning -------------------------
+
 def print_vpn_warning(loader_name: str, sources):
     print()
     print("!" * 62)
     print("  " + t("vpn_header", loader=loader_name))
     print("!" * 62)
     print("  " + t("vpn_downloads", loader=loader_name))
-    for src in sources: print(f"     - {src}")
+    for src in sources:
+        print(f"     - {src}")
     print("  " + t("vpn_blocked"))
     print()
     print("  " + t("vpn_browser_no"))
@@ -762,24 +956,29 @@ def print_vpn_warning(loader_name: str, sources):
     print("  " + t("vpn_tip2"))
     print("!" * 62)
     print()
+
     answer = input(t("vpn_prompt")).strip().lower()
     if answer == "n":
         print(t("vpn_cancel"))
         return False
     return True
 
+
 # ------------------------- Main -------------------------
+
 print("=" * 45)
 print("  " + t("launcher_name"))
 print(t("version_line", v=LAUNCHER_VERSION))
 print(t("system_line", s=SYSTEM))
 print("=" * 45)
-print(t("portable_folder", path=BASE_DIR))
+print(t("data_folder", path=BASE_DIR))
 
 os.makedirs(BASE_DIR, exist_ok=True)
+
 chosen_mirrors = choose_download_source()
 apply_mirror_patch(chosen_mirrors)
 
+# --- Login ---
 print(t("login_title"))
 print(t("login_offline"))
 print(t("login_ms"))
@@ -812,16 +1011,22 @@ print(t("mode_4"))
 print(t("mode_5"))
 mode_choice = input(t("mode_prompt")).strip()
 
-if mode_choice not in ("2", "3", "4", "5"): mode_choice = "1"
+if mode_choice not in ("2", "3", "4", "5"):
+    mode_choice = "1"
 
 if mode_choice == "3":
-    if not print_vpn_warning("Forge", ["maven.minecraftforge.net"]): mode_choice = "1"
+    if not print_vpn_warning("Forge", ["maven.minecraftforge.net"]):
+        mode_choice = "1"
 elif mode_choice == "4":
-    if not print_vpn_warning("Forge + OptiFine", ["maven.minecraftforge.net", "optifine.net"]): mode_choice = "1"
+    if not print_vpn_warning("Forge + OptiFine",
+                             ["maven.minecraftforge.net", "optifine.net"]):
+        mode_choice = "1"
 elif mode_choice == "5":
-    if not print_vpn_warning("NeoForge", ["maven.neoforged.net"]): mode_choice = "1"
+    if not print_vpn_warning("NeoForge", ["maven.neoforged.net"]):
+        mode_choice = "1"
 
 MODS_DIR = os.path.join(GAME_DIR, "mods")
+
 print(t("loading_hello", nick=user_nickname, v=MINECRAFT_VERSION))
 
 if mode_choice in ("2", "3", "4", "5"):
@@ -832,39 +1037,59 @@ if mode_choice in ("2", "3", "4", "5"):
     open_folder(MODS_DIR)
 
 java_path = find_java_path(REQUIRED_JAVA)
-if java_path: print(t("java_using", path=java_path))
-else: print(t("java_warn", v=REQUIRED_JAVA))
+if java_path:
+    print(t("java_using", path=java_path))
+else:
+    print(t("java_warn", v=REQUIRED_JAVA))
 
 target_version = MINECRAFT_VERSION
 
 try:
     print(t("mc_sync", v=MINECRAFT_VERSION))
-    minecraft_launcher_lib.install.install_minecraft_version(MINECRAFT_VERSION, GAME_DIR, callback=callback)
+    minecraft_launcher_lib.install.install_minecraft_version(
+        version=MINECRAFT_VERSION,
+        minecraft_directory=GAME_DIR,
+        callback=callback
+    )
 
+    # ---------- Fabric ----------
     if mode_choice == "2":
         print(t("fabric_setup", v=MINECRAFT_VERSION))
         try:
-            minecraft_launcher_lib.fabric.install_fabric(minecraft_version=MINECRAFT_VERSION, minecraft_directory=GAME_DIR, callback=callback)
+            minecraft_launcher_lib.fabric.install_fabric(
+                minecraft_version=MINECRAFT_VERSION,
+                minecraft_directory=GAME_DIR,
+                callback=callback
+            )
             installed = minecraft_launcher_lib.utils.get_installed_versions(GAME_DIR)
-            fabric_v = next((v["id"] for v in installed if MINECRAFT_VERSION in v["id"] and "fabric" in v["id"].lower()), None)
+            fabric_v = next((v["id"] for v in installed
+                             if MINECRAFT_VERSION in v["id"] and "fabric" in v["id"].lower()), None)
             if fabric_v:
                 target_version = fabric_v
                 print(t("fabric_using", v=fabric_v))
-            else: print(t("fabric_failed"))
-        except Exception as e: print(t("fabric_error", err=e))
+            else:
+                print(t("fabric_failed"))
+        except Exception as e:
+            print(t("fabric_error", err=e))
 
+    # ---------- Forge ----------
     elif mode_choice == "3":
         print(t("forge_setup", v=MINECRAFT_VERSION))
         try:
             forge_ver = minecraft_launcher_lib.forge.find_forge_version(MINECRAFT_VERSION)
-            if not forge_ver: print(t("forge_none", v=MINECRAFT_VERSION))
+            if not forge_ver:
+                print(t("forge_none", v=MINECRAFT_VERSION))
             else:
                 print(t("forge_recommended", v=forge_ver))
-                installed_name = minecraft_launcher_lib.forge.install_forge(forge_ver, GAME_DIR, callback=callback, java=java_path)
+                installed_name = minecraft_launcher_lib.forge.install_forge(
+                    forge_ver, GAME_DIR, callback=callback, java=java_path
+                )
                 target_version = installed_name
                 print(t("forge_using", v=installed_name))
-        except Exception as e: print(t("forge_error", err=e))
+        except Exception as e:
+            print(t("forge_error", err=e))
 
+    # ---------- Forge + OptiFine ----------
     elif mode_choice == "4":
         print(t("fo_setup", v=MINECRAFT_VERSION))
         try:
@@ -874,30 +1099,46 @@ try:
                 print(t("fo_try_forge"))
                 forge_ver = minecraft_launcher_lib.forge.find_forge_version(MINECRAFT_VERSION)
                 if forge_ver:
-                    installed_name = minecraft_launcher_lib.forge.install_forge(forge_ver, GAME_DIR, callback=callback, java=java_path)
+                    installed_name = minecraft_launcher_lib.forge.install_forge(
+                        forge_ver, GAME_DIR, callback=callback, java=java_path
+                    )
                     target_version = installed_name
                     print(t("forge_using", v=installed_name))
-                else: print(t("forge_none", v=MINECRAFT_VERSION))
+                else:
+                    print(t("forge_none", v=MINECRAFT_VERSION))
             else:
                 print(t("fo_found", v=optifine_ver))
                 print(t("fo_installing"))
-                try: minecraft_launcher_lib.forge.install_optifine(optifine_ver, GAME_DIR, callback=callback, java=java_path)
-                except TypeError: minecraft_launcher_lib.forge.install_optifine(optifine_ver, GAME_DIR, callback=callback)
+                try:
+                    minecraft_launcher_lib.forge.install_optifine(
+                        optifine_ver, GAME_DIR, callback=callback, java=java_path
+                    )
+                except TypeError:
+                    minecraft_launcher_lib.forge.install_optifine(
+                        optifine_ver, GAME_DIR, callback=callback
+                    )
+
                 forge_ver = minecraft_launcher_lib.forge.find_forge_version(MINECRAFT_VERSION)
                 if not forge_ver:
                     print(t("fo_no_forge"))
                     installed = minecraft_launcher_lib.utils.get_installed_versions(GAME_DIR)
-                    optifine_v = next((v["id"] for v in installed if MINECRAFT_VERSION in v["id"] and "optifine" in v["id"].lower()), None)
+                    optifine_v = next((v["id"] for v in installed
+                                       if MINECRAFT_VERSION in v["id"]
+                                       and "optifine" in v["id"].lower()), None)
                     if optifine_v:
                         target_version = optifine_v
                         print(t("fo_using_of", v=optifine_v))
                 else:
                     print(t("fo_combined", v=forge_ver))
-                    installed_name = minecraft_launcher_lib.forge.install_forge(forge_ver, GAME_DIR, callback=callback, java=java_path)
+                    installed_name = minecraft_launcher_lib.forge.install_forge(
+                        forge_ver, GAME_DIR, callback=callback, java=java_path
+                    )
                     target_version = installed_name
                     print(t("fo_using_both", v=installed_name))
-        except Exception as e: print(t("fo_error", err=e))
+        except Exception as e:
+            print(t("fo_error", err=e))
 
+    # ---------- NeoForge ----------
     elif mode_choice == "5":
         print(t("neo_setup", v=MINECRAFT_VERSION))
         if neoforge_lib is None:
@@ -907,14 +1148,23 @@ try:
         else:
             try:
                 neo_ver = neoforge_lib.find_neoforge_version(MINECRAFT_VERSION)
-                if not neo_ver: print(t("neo_none", v=MINECRAFT_VERSION))
+                if not neo_ver:
+                    print(t("neo_none", v=MINECRAFT_VERSION))
                 else:
                     print(t("neo_recommended", v=neo_ver))
-                    try: installed_name = neoforge_lib.install_neoforge(neo_ver, GAME_DIR, callback=callback, java=java_path)
-                    except TypeError: installed_name = neoforge_lib.install_neoforge(neo_ver, GAME_DIR, callback=callback)
+                    try:
+                        installed_name = neoforge_lib.install_neoforge(
+                            neo_ver, GAME_DIR, callback=callback, java=java_path
+                        )
+                    except TypeError:
+                        installed_name = neoforge_lib.install_neoforge(
+                            neo_ver, GAME_DIR, callback=callback
+                        )
                     target_version = installed_name
                     print(t("neo_using", v=installed_name))
-            except Exception as e: print(t("neo_error", err=e))
+            except Exception as e:
+                print(t("neo_error", err=e))
+
     else:
         print(t("running_vanilla", v=MINECRAFT_VERSION))
 
@@ -924,15 +1174,22 @@ except Exception as network_error:
 
 try:
     options = {
-        "username": user_nickname, "uuid": user_uuid, "token": user_token,
+        "username": user_nickname,
+        "uuid": user_uuid,
+        "token": user_token,
         "jvmArguments": ["-Xmx4G", "-Xms2G"]
     }
-    if java_path: options["executablePath"] = java_path
+    if java_path:
+        options["executablePath"] = java_path
 
-    launch_command = minecraft_launcher_lib.command.get_minecraft_command(target_version, GAME_DIR, options)
+    launch_command = minecraft_launcher_lib.command.get_minecraft_command(
+        target_version, GAME_DIR, options
+    )
+
     print(t("launch_init", v=target_version, nick=user_nickname))
     print(t("launch_enjoy"))
     subprocess.run(launch_command)
+
 except Exception as launch_error:
     print(t("crit_error", err=launch_error))
     input(t("press_enter"))
